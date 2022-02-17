@@ -61,7 +61,7 @@ def detectObject(loc, obj, dir):
 
 
 # Add additional obstacles to this array per instructions:
-obj = np.array([[0, 3], [2, 7], [3, 8], [5, 5], [2, 0], [1, 2], [7, 1]]) 
+obj = np.array([[0, 3], [2, 7], [3, 8], [5, 5], [2, 0], [1, 2], [7, 1], [3, 6], [4, 4], [4, 6]]) 
 
 displayRoom(loc, obj, vSize, hSize)
 
@@ -71,8 +71,11 @@ while(True):
     
     # If there is an object to the South, move a different direction
     # START
-    # if detectObject(loc, obj, 'S'):
-    #     nextStep = loc[-1] + np.array([0, -1])
+    if detectObject(loc, obj, 'S'):
+        nextStep = loc[-1] + np.array([0, -1])
+    if detectObject(loc, obj, 'E'):
+        nextStep = loc[-1] + np.array([0, -1])
+    
     # STOP
     
     # Update location if no object is in the way and within bounds

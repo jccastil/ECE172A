@@ -9,6 +9,9 @@ import matplotlib.pyplot as plt
 import random
 from skimage import draw
 
+import cv2
+import math 
+
 def generate_one_shape(numSides, orientation):
     xCenter = random.randint(200,300)
     yCenter = random.randint(200,300)
@@ -89,15 +92,49 @@ def generator4():
     return A,B, test_img, label
 
 def classifier1(A, B, test_img):
-    """
-    YOUR CODE HERE
-    """
+    
+
     return 0
 
 def classifier2(A, B, test_img):
-    """
-    YOUR CODE HERE
-    """
+   
+    #save the images
+    testimg1 = np.uint8(test_img)
+    imgA = np.uint8(A)
+    imgB = np.uint8(B)
+
+    #save the images as dark
+    cv2.imwrite('testimg1.jpg', testimg1)
+    cv2.imwrite('imgA.jpg', imgA)
+    cv2.imwrite('imgB.jpg', imgB)
+
+    #read the images as grayscale
+    testimg1_gs = cv2.imread('testimg1.jpg', cv2.IMREAD_GRAYSCALE)
+    imgA_gs = cv2.imread('imgA.jpg', cv2.IMREAD_GRAYSCALE)
+    imgB_gs = cv2.imread('imgB.jpg', cv2.IMREAD_GRAYSCALE)
+
+    #turn grayscale images to BW and save them
+    cv2.imwrite('testimg1_bw.jpg', testimg1_gs*255)
+    cv2.imwrite('imgA_bw.jpg', imgA_gs*255)
+    cv2.imwrite('imgB_bw.jpg', imgB_gs*255)
+
+
+    #binarize the images
+    (T,Thresh1) = cv2.threshold(testimg1_gs*255, 128, 255, cv2.THRESH_BINARY)
+    (T,Thresh2) = cv2.threshold(imgA_gs*255, 128, 255, cv2.THRESH_BINARY)
+    (T,Thresh3) = cv2.threshold(imgB_gs*255, 128, 255, cv2.THRESH_BINARY)
+
+    #test cv matchshapes
+    ret_test_A = cv2.matchShapes(Thresh1, Thresh2,1,0.0 )
+    print(ret_test_A)
+    ret_test_B = cv2.matchShapes(Thresh1, Thresh3,1,0.0 )
+    print(ret_test_B)
+
+    if ret_test_A < ret_test_B:
+        label == 0
+    if ret_test_B < ret_test_A:
+        label == 1
+    print(label)
     return 0
 
 def classifier3(A, B, test_img):
