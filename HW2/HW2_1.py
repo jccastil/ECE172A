@@ -27,7 +27,7 @@ ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_zlabel('z')
 ax.set_title('3D Contour')
-plt.show()
+#plt.show()
 
 
 ##1.1 (i) plot the 2D contour plot of the vector field. 
@@ -42,13 +42,30 @@ dy, dx = np.gradient(z)
 
 fig, ax = plt.subplots(figsize=(8,8))
 ax.quiver(X, Y, dx, dy)
-plt.contour(x,y,z, 12, angles='xy', scale_units='xy')
+plt.contour(x,y,z, 12)
 plt.title("2D Contour")
 plt.xlabel("x")
 plt.ylabel("y")
+plt.xlim([-10, 110])
+plt.ylim([-10, 110])
 plt.colorbar()
 #add asterisk for initial/final loc in contour quiver plot
-plt.plot(initial_loc, marker="*", markersize=15, markeredgecolor="black", markerfacecolor="blue")
-plt.plot(final_loc, marker="*", markersize=15, markeredgecolor="black", markerfacecolor="red")
+plt.plot(0,0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
+plt.plot(100,100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
 #implement the gradient descent algorithm to navigate the potential field.
+##Testing
+x_old = initial_loc
+x_new = initial_loc - 1*(dx[5, 5], dy[5, 5])
+print("gradient at (0,0) is: ", dx[5, 5],dy[5,5])
+print("x_new is: ", x_new)
+plt.plot(x_new, marker="*", markersize=20)
 plt.show()
+
+
+#test print the the magnitude of the gradient at position (0,0) 
+print("magnitude of (0,0) is:", np.linalg.norm([dx[0,0], dy[0, 0]]))
+
+##note to self: this is the gradient at point (0,0)
+#print("TEST dx is: ", dx[99, 99])
+#print("TEST dy is: ", dy[99, 99])
+#print("this is", i, j)
