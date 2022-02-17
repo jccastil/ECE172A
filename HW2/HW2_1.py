@@ -41,7 +41,7 @@ dy, dx = np.gradient(z)
 
 
 fig, ax = plt.subplots(figsize=(8,8))
-ax.quiver(X, Y, -dx, -dy)
+ax.quiver(X, Y, dx, dy)
 plt.contour(x,y,z, 12, angles='xy', scale_units='xy')
 plt.title("2D Contour")
 plt.xlabel("x")
@@ -50,7 +50,5 @@ plt.colorbar()
 #add asterisk for initial/final loc in contour quiver plot
 plt.plot(initial_loc, marker="*", markersize=15, markeredgecolor="black", markerfacecolor="blue")
 plt.plot(final_loc, marker="*", markersize=15, markeredgecolor="black", markerfacecolor="red")
-
 #implement the gradient descent algorithm to navigate the potential field.
-
 plt.show()
