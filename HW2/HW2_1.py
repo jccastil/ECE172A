@@ -33,16 +33,12 @@ plt.show()
 ##1.1 (i) plot the 2D contour plot of the vector field. 
 ##(ii) plot the gradient as quivers on the same plot as the contour plot. 
 #determine X and Y positions
+
+#meshgrid returns coordinate matrices from coordinate vectors
 X, Y = np.meshgrid(x, y)
 #determine dx and dy (notice order of parameters)
 dy, dx = np.gradient(z)
 
-#object initial position
-xinit = [20]
-yinit = [10]
-#object final position
-xfin = [90]
-yfin = [90]
 
 fig, ax = plt.subplots(figsize=(8,8))
 ax.quiver(X, Y, -dx, -dy)
@@ -51,8 +47,9 @@ plt.title("2D Contour")
 plt.xlabel("x")
 plt.ylabel("y")
 plt.colorbar()
-#plt.plot(xinit, yinit, marker="*", markersize=15, markeredgecolor="black", markerfacecolor="blue")
-#plt.plot(xfin, yfin, marker="*", markersize=15, markeredgecolor="black", markerfacecolor="red")
+#add asterisk for initial/final loc in contour quiver plot
+plt.plot(initial_loc, marker="*", markersize=15, markeredgecolor="black", markerfacecolor="blue")
+plt.plot(final_loc, marker="*", markersize=15, markeredgecolor="black", markerfacecolor="red")
 
 #implement the gradient descent algorithm to navigate the potential field.
 
