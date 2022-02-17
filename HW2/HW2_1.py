@@ -54,6 +54,6 @@ plt.colorbar()
 #plt.plot(xinit, yinit, marker="*", markersize=15, markeredgecolor="black", markerfacecolor="blue")
 #plt.plot(xfin, yfin, marker="*", markersize=15, markeredgecolor="black", markerfacecolor="red")
 
-#Testing+++++
+#implement the gradient descent algorithm to navigate the potential field.
 
 plt.show()
