@@ -53,19 +53,30 @@ plt.colorbar()
 plt.plot(0,0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
 plt.plot(100,100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
 #implement the gradient descent algorithm to navigate the potential field.
-##Testing
-x_old = initial_loc
-x_new = initial_loc - 1*(dx[5, 5], dy[5, 5])
-print("gradient at (0,0) is: ", dx[5, 5],dy[5,5])
-print("x_new is: ", x_new)
-plt.plot(x_new, marker="*", markersize=20)
+
+#gradient for a point (x,y); (0,0) for initial_location
+gradx = dx[initial_loc[0], initial_loc[1]]
+grady = dy[initial_loc[0], initial_loc[1]]
+#create an array for gradient of point x,y	
+gradloc = np.array([gradx, grady])
+#obtain magnitude of gradient for point 0,0
+gradlocmag = np.linalg.norm(gradloc)
+#Determine what epsilon is
+
+#create next step
+#Note: order of derivatives must be established since a has to be 1000+ in order to see significant change for next step.
+alpha = 10
+nextstep = np.array([0,0])
+nextstep[0] = nextstep[0]- alpha*gradloc[0]
+nextstep[1] = nextstep[1]-alpha*gradloc[1]
+print("nextstep is: ", nextstep)
+
 plt.show()
 
 
-#test print the the magnitude of the gradient at position (0,0) 
-print("magnitude of (0,0) is:", np.linalg.norm([dx[0,0], dy[0, 0]]))
+
 
 ##note to self: this is the gradient at point (0,0)
-#print("TEST dx is: ", dx[99, 99])
-#print("TEST dy is: ", dy[99, 99])
+#print("TEST dx is: ", dx[0, 0])
+#print("TEST dy is: ", dy[0, 0])
 #print("this is", i, j)
