@@ -3,7 +3,7 @@ ECE 172A, Homework 2 Robot Traversal
 Author: regreer@ucsd.edu
 For use by UCSD ECE 172A students only.
 '''
-
+import sys 
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -39,6 +39,7 @@ X, Y = np.meshgrid(x, y)
 #determine dx and dy (notice order of parameters)
 dy, dx = np.gradient(z)
 
+#np.set_printoptions(threshold=np.inf)
 
 fig, ax = plt.subplots(figsize=(8,8))
 ax.quiver(X, Y, dx, dy)
@@ -59,22 +60,22 @@ gradx = dx[initial_loc[0], initial_loc[1]]
 grady = dy[initial_loc[0], initial_loc[1]]
 #create an array for gradient of point x,y	
 gradloc = np.array([gradx, grady])
+
 #obtain magnitude of gradient for point 0,0
 gradlocmag = np.linalg.norm(gradloc)
 #Determine what epsilon is
 
 #create next step
 #Note: order of derivatives must be established since a has to be 1000+ in order to see significant change for next step.
-alpha = 10
-nextstep = np.array([0,0])
-nextstep[0] = nextstep[0]- alpha*gradloc[0]
-nextstep[1] = nextstep[1]-alpha*gradloc[1]
-print("nextstep is: ", nextstep)
-
+nextstep = np.array([0,0]) #initialize next step
+alpha = 100				#initialize alpha
+nextstep[0] = nextstep[0]-alpha*dx[0,0]
+nextstep[1] = nextstep[1]-alpha*dy[0,0]
+np.set_printoptions(threshold=np.inf)
+print(nextstep)
+print(nextstep[0])
+print(100*dx[0,0])
 plt.show()
-
-
-
 
 ##note to self: this is the gradient at point (0,0)
 #print("TEST dx is: ", dx[0, 0])
