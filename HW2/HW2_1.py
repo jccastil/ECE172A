@@ -55,15 +55,15 @@ plt.plot(0,0, marker="*", markersize=20, markeredgecolor="black", markerfacecolo
 plt.plot(100,100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
 #implement the gradient descent algorithm to navigate the potential field.
 
-#gradient for a point (x,y); (0,0) for initial_location
-gradx = dx[initial_loc[0], initial_loc[1]]
-grady = dy[initial_loc[0], initial_loc[1]]
-#create an array for gradient of point x,y	
-gradloc = np.array([gradx, grady])
+##gradient for a point (x,y); (0,0) for initial_location
+#gradx = dx[initial_loc[0], initial_loc[1]]
+#grady = dy[initial_loc[0], initial_loc[1]]
+##create an array for gradient of point x,y	
+#gradloc = np.array([gradx, grady])
 
-#obtain magnitude of gradient for point 0,0
-gradlocmag = np.linalg.norm(gradloc)
-#Determine what epsilon is
+##obtain magnitude of gradient for point 0,0
+#gradlocmag = np.linalg.norm(gradloc)
+##Determine what epsilon is
 
 #create next step
 #Note: order of derivatives must be established since a has to be 1000+ in order to see significant change for next step.
@@ -75,6 +75,21 @@ np.set_printoptions(threshold=np.inf)
 print(nextstep)
 print(nextstep[0])
 print(100*dx[0,0])
+
+for i in range(0,10):
+	for j in range(0,10):
+		gradx = dx[i,j]
+		grady = dy[i,j]
+		gradloc = np.array([gradx, grady])
+		gradlocmag = np.linalg.norm(gradloc)
+		nextstep[0] = nextstep[0] - alpha*dx[i,j]
+		nextstep[1] = nextstep[1] - alpha*dy[i,j]
+		print("i is now: ", i, "j is now: ", j)
+		plt.plot(nextstep[0],nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
+		plt.show()
+
+
+
 plt.show()
 
 ##note to self: this is the gradient at point (0,0)
