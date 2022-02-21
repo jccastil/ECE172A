@@ -54,19 +54,24 @@ plt.colorbar()
 plt.plot(0,0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
 plt.plot(100,100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
 #implement the gradient descent algorithm to navigate the potential field.
-nextstep = np.array([0,0]) #initialize next step to have starting point coordinates
-gradloc = np.array([dx[0,0],dy[0,0]]) #hold the gradient of initial location. Will get updated in while loop.
 alpha = 150 #initialize alpha
-print("norm is: ", np.linalg.norm(gradloc))
-# while (np.linalg.norm(gradloc)) > 0.1:
-# 	nextstep[0] = nextstep[0]-round(alpha*dx[nextstep[1],nextstep[0]])
-# 	nextstep[1] = nextstep[1]-round(alpha*dy[nextstep[1],nextstep[0]])
-# 	plt.plot(nextstep[0], nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
-for tester in range(120):
+#For loop method
+nextstep = np.array([40,10]) #initialize next step to have starting point coordinates
+for test in range(500):
 	nextstep[0] = nextstep[0]-round(alpha*dx[nextstep[1],nextstep[0]])
 	nextstep[1] = nextstep[1]-round(alpha*dy[nextstep[1],nextstep[0]])
-	# print(nextstep)
-	plt.plot(nextstep[0], nextstep[1], marker="x", markersize=10, markeredgecolor="black", markerfacecolor="black")
+	plt.plot(nextstep[0], nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
+
+# While loop that needs to be fixed.
+# nextgrad = np.array([dx[0,0],dy[0,0]]) #hold the gradient of initial location. Will get updated in while loop.
+# location0 = np.array([0,0])
+# print(np.linalg.norm(nextgrad))
+# print(nextgrad[0], nextgrad[1])
+# while np.linalg.norm(nextgrad) > 0.000001 :
+# 	location0[0] = location0[0]-round(alpha*(dx[nextgrad[1],nextgrad[0]]))
+# 	location0[1] = nextgrad[1]-round(alpha*(dy[nextgrad[1],nextgrad[0]]))
+# 	print(nextgrad)
+# 	plt.plot(nextgrad[0], nextgrad[1], marker="x", markersize=10, markeredgecolor="black", markerfacecolor="black")
 
 
 
