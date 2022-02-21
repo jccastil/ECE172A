@@ -68,25 +68,25 @@ plt.plot(100,100, marker="*", markersize=20, markeredgecolor="black", markerface
 #create next step
 #Note: order of derivatives must be established since a has to be 1000+ in order to see significant change for next step.
 nextstep = np.array([0,0]) #initialize next step
-alpha = 100				#initialize alpha
+alpha = 1				#initialize alpha
 nextstep[0] = nextstep[0]-alpha*dx[0,0]
 nextstep[1] = nextstep[1]-alpha*dy[0,0]
 np.set_printoptions(threshold=np.inf)
-print(nextstep)
-print(nextstep[0])
-print(100*dx[0,0])
+print("nextstep is: ",nextstep)
+print("dx[0,0] is: ", dx[0,0])
 
-for i in range(0,10):
-	for j in range(0,10):
-		gradx = dx[i,j]
-		grady = dy[i,j]
-		gradloc = np.array([gradx, grady])
-		gradlocmag = np.linalg.norm(gradloc)
-		nextstep[0] = nextstep[0] - alpha*dx[i,j]
-		nextstep[1] = nextstep[1] - alpha*dy[i,j]
-		print("i is now: ", i, "j is now: ", j)
-		plt.plot(nextstep[0],nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
-		plt.show()
+
+# for i in range(0,10):
+# 	for j in range(0,10):
+# 		gradx = dx[i,j]
+# 		grady = dy[i,j]
+# 		gradloc = np.array([gradx, grady])
+# 		gradlocmag = np.linalg.norm(gradloc)
+# 		nextstep[0] = nextstep[0] - alpha*dx[i,j]
+# 		nextstep[1] = nextstep[1] - alpha*dy[i,j]
+# 		print("i is now: ", i, "j is now: ", j)
+# 		plt.plot(nextstep[0],nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
+# 		plt.show()
 
 
 
