@@ -54,42 +54,25 @@ plt.colorbar()
 plt.plot(0,0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
 plt.plot(100,100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
 #implement the gradient descent algorithm to navigate the potential field.
+nextstep = np.array([0,0]) #initialize next step to have starting point coordinates
+gradloc = np.array([dx[0,0],dy[0,0]]) #hold the gradient of initial location. Will get updated in while loop.
+alpha = 150 #initialize alpha
+print("norm is: ", np.linalg.norm(gradloc))
+# while (np.linalg.norm(gradloc)) > 0.1:
+# 	nextstep[0] = nextstep[0]-round(alpha*dx[nextstep[1],nextstep[0]])
+# 	nextstep[1] = nextstep[1]-round(alpha*dy[nextstep[1],nextstep[0]])
+# 	plt.plot(nextstep[0], nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
+for tester in range(120):
+	nextstep[0] = nextstep[0]-round(alpha*dx[nextstep[1],nextstep[0]])
+	nextstep[1] = nextstep[1]-round(alpha*dy[nextstep[1],nextstep[0]])
+	# print(nextstep)
+	plt.plot(nextstep[0], nextstep[1], marker="x", markersize=10, markeredgecolor="black", markerfacecolor="black")
 
-##gradient for a point (x,y); (0,0) for initial_location
-#gradx = dx[initial_loc[0], initial_loc[1]]
-#grady = dy[initial_loc[0], initial_loc[1]]
-##create an array for gradient of point x,y	
-#gradloc = np.array([gradx, grady])
 
-##obtain magnitude of gradient for point 0,0
-#gradlocmag = np.linalg.norm(gradloc)
-##Determine what epsilon is
 
-#create next step
-#Note: order of derivatives must be established since a has to be 1000+ in order to see significant change for next step.
-nextstep = np.array([0,0]) #initialize next step
-alpha = 1				#initialize alpha
-nextstep[0] = nextstep[0]-alpha*dx[0,0]
-nextstep[1] = nextstep[1]-alpha*dy[0,0]
+
+
 np.set_printoptions(threshold=np.inf)
-print("nextstep is: ",nextstep)
-print("dx[0,0] is: ", dx[0,0])
-
-
-# for i in range(0,10):
-# 	for j in range(0,10):
-# 		gradx = dx[i,j]
-# 		grady = dy[i,j]
-# 		gradloc = np.array([gradx, grady])
-# 		gradlocmag = np.linalg.norm(gradloc)
-# 		nextstep[0] = nextstep[0] - alpha*dx[i,j]
-# 		nextstep[1] = nextstep[1] - alpha*dy[i,j]
-# 		print("i is now: ", i, "j is now: ", j)
-# 		plt.plot(nextstep[0],nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
-# 		plt.show()
-
-
-
 plt.show()
 
 ##note to self: this is the gradient at point (0,0)
