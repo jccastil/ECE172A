@@ -43,7 +43,7 @@ dy, dx = np.gradient(z)
 
 fig, ax = plt.subplots(figsize=(8,8))
 ax.quiver(X, Y, dx, dy)
-plt.contour(x,y,z, 12)
+plt.contour(x,y,z, 13)
 plt.title("2D Contour")
 plt.xlabel("x")
 plt.ylabel("y")
