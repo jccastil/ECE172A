@@ -63,7 +63,7 @@ alpha = 150 #initialize alpha
 # 	nextstep[1] = nextstep[1]-round(alpha*dy[nextstep[1],nextstep[0]])
 # 	plt.plot(nextstep[0], nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
 
-#For loop method2
+#new while loop
 nextstep = np.array([0,0])
 xnextgrad = dx[nextstep[1],nextstep[0]]
 ynextgrad = dy[nextstep[1],nextstep[0]]
