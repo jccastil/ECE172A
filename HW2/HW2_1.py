@@ -41,18 +41,18 @@ dy, dx = np.gradient(z)
 
 #np.set_printoptions(threshold=np.inf)
 
-fig, ax = plt.subplots(figsize=(8,8))
-ax.quiver(X, Y, dx, dy)
-plt.contour(x,y,z, 13)
-plt.title("2D Contour")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.xlim([-10, 110])
-plt.ylim([-10, 110])
-plt.colorbar()
-#add asterisk for initial/final loc in contour quiver plot
-plt.plot(0,0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
-plt.plot(100,100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
+# fig, ax = plt.subplots(figsize=(8,8))
+# ax.quiver(X, Y, dx, dy)
+# plt.contour(x,y,z, 13)
+# plt.title("2D Contour")
+# plt.xlabel("x")
+# plt.ylabel("y")
+# plt.xlim([-10, 110])
+# plt.ylim([-10, 110])
+# plt.colorbar()
+# #add asterisk for initial/final loc in contour quiver plot
+# plt.plot(0,0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
+# plt.plot(100,100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
 #implement the gradient descent algorithm to navigate the potential field.
 alpha = 150 #initialize alpha
 
@@ -69,36 +69,56 @@ xnextgrad = dx[nextstep[1],nextstep[0]]
 ynextgrad = dy[nextstep[1],nextstep[0]]
 nextgrad = np.array([xnextgrad, ynextgrad])
 gradmag = np.linalg.norm(nextgrad)
+
+#create 2 empty list to hold the new x and y coordinates and then use them to plot the data after the
+#while loop
+xplot = []
+yplot = []
 #create while loop
 while(gradmag > 0.0001):
-	print("befor next step is: ",nextstep)
+	print("before next step is: ",nextstep)
 	xnextgrad = dx[nextstep[1], nextstep[0]]
 	ynextgrad = dy[nextstep[1], nextstep[0]]
 	nextgrad = np.array([xnextgrad, ynextgrad])
 	nextstep[0] = nextstep[0]-np.round(alpha*xnextgrad)
 	nextstep[1] = nextstep[1]-np.round(alpha*ynextgrad)
 	print("now nextstep is: ",nextstep)
+	xplot.append([nextstep[0]])
+	yplot.append([nextstep[1]])
+	# # #attempt to plot begin
+	# fig, ax = plt.subplots(figsize=(8, 8))
+	# ax.quiver(X, Y, dx, dy)
+	# plt.contour(x, y, z, 13)
+	# plt.title("2D Contour")
+	# plt.xlabel("x")
+	# plt.ylabel("y")
+	# plt.xlim([-10, 110])
+	# plt.ylim([-10, 110])
+	# plt.colorbar()
+	# # add asterisk for initial/final loc in contour quiver plot
+	# plt.plot(0, 0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
+	# plt.plot(100, 100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
+	# plt.plot(nextstep[0], nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
+	if (nextstep[0]==68 and nextstep[1]==74):
+		gradmag = 0
+	# 	plt.pause(0.05)
+	# 	plt.show()
+	# plt.show()
 
-	#attempt to plot begin
-	fig, ax = plt.subplots(figsize=(8, 8))
-	ax.quiver(X, Y, dx, dy)
-	plt.contour(x, y, z, 13)
-	plt.title("2D Contour")
-	plt.xlabel("x")
-	plt.ylabel("y")
-	plt.xlim([-10, 110])
-	plt.ylim([-10, 110])
-	plt.colorbar()
-	# add asterisk for initial/final loc in contour quiver plot
-	plt.plot(0, 0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
-	plt.plot(100, 100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
-	#attempt to plot end
-	plt.plot(nextstep[0], nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
-	plt.show()
-
-
-
-
+fig, ax = plt.subplots(figsize=(8,8))
+ax.quiver(X, Y, dx, dy)
+plt.contour(x,y,z, 13)
+plt.title("2D Contour")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.xlim([-10, 110])
+plt.ylim([-10, 110])
+plt.colorbar()
+#add asterisk for initial/final loc in contour quiver plot
+plt.plot(0,0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
+plt.plot(100,100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
+plt.plot(xplot, yplot, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
+plt.show()
 
 
 
@@ -122,8 +142,8 @@ while(gradmag > 0.0001):
 
 
 
-np.set_printoptions(threshold=np.inf)
-plt.show()
+# np.set_printoptions(threshold=np.inf)
+# plt.show()
 
 ##note to self: this is the gradient at point (0,0)
 #print("TEST dx is: ", dx[0, 0])
