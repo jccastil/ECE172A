@@ -75,7 +75,7 @@ gradmag = np.linalg.norm(nextgrad)
 xplot = []
 yplot = []
 #create while loop
-while(gradmag > 0.0001):
+while(gradmag > 0.001):
 	print("before next step is: ",nextstep)
 	xnextgrad = dx[nextstep[1], nextstep[0]]
 	ynextgrad = dy[nextstep[1], nextstep[0]]
@@ -99,7 +99,8 @@ while(gradmag > 0.0001):
 	# plt.plot(0, 0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
 	# plt.plot(100, 100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
 	# plt.plot(nextstep[0], nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
-	if (nextstep[0]==68 and nextstep[1]==74):
+	#creat if statement to break out of while loop if coordinates of the marker don't change
+	if (len(xplot)>3 and xplot[-1]==xplot[-3] and yplot[-1]==yplot[-3]):
 		gradmag = 0
 	# 	plt.pause(0.05)
 	# 	plt.show()
