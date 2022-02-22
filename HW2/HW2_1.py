@@ -55,23 +55,68 @@ plt.plot(0,0, marker="*", markersize=20, markeredgecolor="black", markerfacecolo
 plt.plot(100,100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
 #implement the gradient descent algorithm to navigate the potential field.
 alpha = 150 #initialize alpha
+
 #For loop method
-nextstep = np.array([40,10]) #initialize next step to have starting point coordinates
-for test in range(500):
-	nextstep[0] = nextstep[0]-round(alpha*dx[nextstep[1],nextstep[0]])
-	nextstep[1] = nextstep[1]-round(alpha*dy[nextstep[1],nextstep[0]])
+# nextstep = np.array([0,99]) #initialize next step to have starting point coordinates
+# for test in range(500):
+# 	nextstep[0] = nextstep[0]-round(alpha*dx[nextstep[1],nextstep[0]])
+# 	nextstep[1] = nextstep[1]-round(alpha*dy[nextstep[1],nextstep[0]])
+# 	plt.plot(nextstep[0], nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
+
+#For loop method2
+nextstep = np.array([0,0])
+xnextgrad = dx[nextstep[1],nextstep[0]]
+ynextgrad = dy[nextstep[1],nextstep[0]]
+nextgrad = np.array([xnextgrad, ynextgrad])
+gradmag = np.linalg.norm(nextgrad)
+#create while loop
+while(gradmag > 0.0001):
+	print("befor next step is: ",nextstep)
+	xnextgrad = dx[nextstep[1], nextstep[0]]
+	ynextgrad = dy[nextstep[1], nextstep[0]]
+	nextgrad = np.array([xnextgrad, ynextgrad])
+	nextstep[0] = nextstep[0]-np.round(alpha*xnextgrad)
+	nextstep[1] = nextstep[1]-np.round(alpha*ynextgrad)
+	print("now nextstep is: ",nextstep)
+
+	#attempt to plot begin
+	fig, ax = plt.subplots(figsize=(8, 8))
+	ax.quiver(X, Y, dx, dy)
+	plt.contour(x, y, z, 13)
+	plt.title("2D Contour")
+	plt.xlabel("x")
+	plt.ylabel("y")
+	plt.xlim([-10, 110])
+	plt.ylim([-10, 110])
+	plt.colorbar()
+	# add asterisk for initial/final loc in contour quiver plot
+	plt.plot(0, 0, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="blue")
+	plt.plot(100, 100, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red")
+	#attempt to plot end
 	plt.plot(nextstep[0], nextstep[1], marker="*", markersize=20, markeredgecolor="black", markerfacecolor="black")
+	plt.show()
+
+
+
+
+
+
 
 # While loop that needs to be fixed.
 # nextgrad = np.array([dx[0,0],dy[0,0]]) #hold the gradient of initial location. Will get updated in while loop.
 # location0 = np.array([0,0])
 # print(np.linalg.norm(nextgrad))
 # print(nextgrad[0], nextgrad[1])
-# while np.linalg.norm(nextgrad) > 0.000001 :
-# 	location0[0] = location0[0]-round(alpha*(dx[nextgrad[1],nextgrad[0]]))
-# 	location0[1] = nextgrad[1]-round(alpha*(dy[nextgrad[1],nextgrad[0]]))
-# 	print(nextgrad)
-# 	plt.plot(nextgrad[0], nextgrad[1], marker="x", markersize=10, markeredgecolor="black", markerfacecolor="black")
+# while np.linalg.norm(nextgrad) > 0.00001:
+# 	print("location0 begin:",location0)
+# 	location0[0] = location0[0]- np.round(alpha*(nextgrad[0]))
+# 	location0[1] = nextgrad[1]- np.round(alpha*(nextgrad[1]))
+# 	print("locatin0 middleL: ",location0)
+# 	nextgrad[0] = dx[location0[1],location0[0]]
+# 	nextgrad[1] = dy[location0[1],location0[0]]
+# 	print("nextgrad end: ",nextgrad)
+
+
 
 
 
