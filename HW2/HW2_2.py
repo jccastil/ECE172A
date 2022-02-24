@@ -13,7 +13,8 @@ import math
 import time
 import random
 import heapq
-#Test commit 2
+
+import sys
 
 # initialize parameters
 height = 50; # map height
@@ -62,6 +63,33 @@ def get_unexplored_areas(explore_map, unmapped_value):
     unexplored areas in this case. If there are no unexplored areas, then
     unexplored_areas should return empty [].
     '''
+    #create matrix to hold all coordinates of the N unexplored points on map
+
+    #create lists to hold x and y
+    xn = []
+    yn = []
+
+    #create for loop to iterate the map and store indices
+    for i in range(49):
+        for j in range(49):
+            if (blueprint[i,j] == 0):
+                xn.append(i)
+                yn.append(j)
+                lentemp = len(xn)
+    #create the Nx2 matrix to hold coordinates accordingly
+    N = np.zeros((lentemp,2))
+    np.set_printoptions(threshold=sys.maxsize)
+    #create for loop to insert coordinates into the Nx2
+    #pre defined walls are not included in Nx2 matrix
+    for k in range(lentemp):
+        N[k,0] = xn[k]
+        N[k,1] = yn[k]
+
+
+
+
+
+
     return 0
 
 def get_new_destination(current_position, unexplored_areas):
