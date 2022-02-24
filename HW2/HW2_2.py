@@ -68,8 +68,9 @@ def get_unexplored_areas(explore_map, unmapped_value):
     #create lists to hold x and y
     xn = []
     yn = []
-
+    empty = []
     #create for loop to iterate the map and store indices
+    #may need to change the range
     for i in range(49):
         for j in range(49):
             if (blueprint[i,j] == 0):
@@ -85,10 +86,7 @@ def get_unexplored_areas(explore_map, unmapped_value):
         N[k,0] = xn[k]
         N[k,1] = yn[k]
 
-
-
-
-
+    #handle case where N == 0 and return empty
 
     return 0
 
@@ -100,6 +98,13 @@ def get_new_destination(current_position, unexplored_areas):
     we define "closest" using the euclidean distance measure,
     e.g. sqrt((x1-x2)^2 + (y1-y2)^2).
     '''
+    #list to hold euclidean distances bt curPos and N
+    distlist = []
+    for i in range(len(N)):
+        listtemp = np.linalg.norm(curPos, N[i,:])
+        print(listtemp)
+        distlist.append(listtemp)
+    print(distlist)
 
     return 0
 
