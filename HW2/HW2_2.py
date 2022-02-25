@@ -28,6 +28,8 @@ planned = .2 # value for a bot's planned path in map matrix
 unmapped = 0 # value for a unmapped area in map matrix
 
 # define structure to hold all information about the bots and map
+#array with braces in every index
+#each index can hold a value and a (label?)
 bots = [{} for i in range(num_bots)]
 
 # define the provided blueprint map
@@ -81,13 +83,16 @@ def get_unexplored_areas(explore_map, unmapped_value):
     N = np.zeros((lentemp,2))
     np.set_printoptions(threshold=sys.maxsize)
     #create for loop to insert coordinates into the Nx2
-    #pre defined walls are not included in Nx2 matrix
+    #pre defined walls are not included in Nx2 matrix (helps verify that only valid coordinates are stored)
     for k in range(lentemp):
         N[k,0] = xn[k]
         N[k,1] = yn[k]
 
     #handle case where N == 0 and return empty
-
+    if np.size(N) == 0:
+        return 0
+    else:
+        return N
     return 0
 
 def get_new_destination(current_position, unexplored_areas):
@@ -98,13 +103,20 @@ def get_new_destination(current_position, unexplored_areas):
     we define "closest" using the euclidean distance measure,
     e.g. sqrt((x1-x2)^2 + (y1-y2)^2).
     '''
+    #side note: unexplored areas = N (from previous function). When code runs this is what is happening
+
     #list to hold euclidean distances bt curPos and N
     distlist = []
-    for i in range(len(N)):
-        listtemp = np.linalg.norm(curPos, N[i,:])
+    for i in range(len(unexplored_areas)):
+        listtemp = np.linalg.norm(curPos, unexplored_areas[i,:]) #resolve this issue. Confusion with N is solved.
         print(listtemp)
         distlist.append(listtemp)
     print(distlist)
+    #get min val from dist list
+    #may need to pop the value once stored
+    dest = min(distlist)
+
+
 
     return 0
 
