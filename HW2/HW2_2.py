@@ -107,14 +107,14 @@ def get_new_destination(current_position, unexplored_areas):
 
     #list to hold euclidean distances bt curPos and N
     distlist = []
-    for i in range(len(unexplored_areas)):
-        listtemp = np.linalg.norm(curPos, unexplored_areas[i,:]) #resolve this issue. Confusion with N is solved.
-        print(listtemp)
-        distlist.append(listtemp)
-    print(distlist)
-    #get min val from dist list
-    #may need to pop the value once stored
-    dest = min(distlist)
+    for k in range(10):
+        print("current[0] is: ", current_position[0], "current[1] is: ", current_position[1])
+        print("unex[k,0] is: ", unexplored_areas[k,0], "unex[k,1] is:", unexplored_areas[k,1])
+        xdiff = current_position[0]-unexplored_areas[k,0]
+        ydiff = current_position[1]-unexplored_areas[k,1]
+        dist = math.sqrt(xdiff**2 + ydiff**2)
+        distlist.append(dist)
+    print("distlist: ", np.transpose(distlist))
 
 
 
