@@ -107,16 +107,39 @@ def get_new_destination(current_position, unexplored_areas):
 
     #list to hold euclidean distances bt curPos and N
     distlist = []
-    for k in range(10):
-        print("current[0] is: ", current_position[0], "current[1] is: ", current_position[1])
-        print("unex[k,0] is: ", unexplored_areas[k,0], "unex[k,1] is:", unexplored_areas[k,1])
+    for k in range(len(unexplored_areas)):
+
+        # print("current[0] is: ", current_position[0], "current[1] is: ", current_position[1])
+        # print("unex[k,0] is: ", unexplored_areas[k,0], "unex[k,1] is:", unexplored_areas[k,1])
+
+        #get differences in x and y to use in distance formula
         xdiff = current_position[0]-unexplored_areas[k,0]
         ydiff = current_position[1]-unexplored_areas[k,1]
+        #obtain distance
         dist = math.sqrt(xdiff**2 + ydiff**2)
+        #append distance to list
         distlist.append(dist)
-    print("distlist: ", np.transpose(distlist))
 
+    #print to get visual representation during implementation
+    print(np.transpose(distlist))
 
+    #get minimum distance value
+    mindist = min(distlist)
+
+    # print("smallest val: ", mindist)
+
+    #Store index of where the smallest value occurs
+    minindex = distlist.index(min(distlist))
+
+    # print("minindex is: ", minindex)
+    #testprint the index to verify that it in fact hold the min dist
+    # print("testing: ", distlist[1096])
+
+    #Use the index of where smallest value occurs to get the coordinates of 'dest' from the Nx2 matrix
+    dest = unexplored_areas[minindex,:]
+
+    #test print
+    print(dest)
 
     return 0
 
