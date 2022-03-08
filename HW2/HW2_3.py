@@ -10,11 +10,16 @@ import	matplotlib.pyplot as plt
 import math
 
 def	forwardKinematics(theta0, theta1, theta2, l0, l1, l2):
+	#initialize j0 at origin
 	j0 = np.array([0,0])
+	#define
 	j1 = np.array([l0*math.cos(theta0),l0*math.sin(theta0)])
-	j2 = np.array([j1[0]+l1*math.cos(theta1), j1[1]+l1*math.sin(theta1)])
-	E = np.array([j2[0]+l2*math.cos(theta2), j2[1]+l2*math.sin(theta2)])
-
+	j2 = np.array([j1[0]+l1*math.cos(theta0+theta1), j1[1]+l1*math.sin(theta0+theta1)])
+	E = np.array([j2[0]+l2*math.cos(theta0+theta1+theta2), j2[1]+l2*math.sin(theta0+theta1+theta2)])
+	print("j0: ",j0)
+	print("j1: ",j1)
+	print("j2: ",j2)
+	print("E :", E)
 	return 0
 
 def	inverseKinematics(l0,l1,l2,x_e_target,y_e_target):
@@ -75,3 +80,8 @@ def	drawRobot(x_1,y_1,x_2,y_2,x_e,y_e):
 	plt.scatter([x_0, x_1, x_2, x_e], [y_0, y_1, y_2, y_e], color='r')
 	plt.show()
 
+forwardKinematics(math.pi/3,math.pi/12,math.pi/-6,3,5,7)
+drawRobot(1.5,2.59,2.79,7.43,7.74,13.34)
+
+forwardKinematics(math.pi/4,math.pi/4,math.pi/4,3,5,2)
+drawRobot(2.12,2.12,2.12,7.12,0.707,8.54)

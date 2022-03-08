@@ -65,7 +65,6 @@ def get_unexplored_areas(explore_map, unmapped_value):
     unexplored areas in this case. If there are no unexplored areas, then
     unexplored_areas should return empty [].
     '''
-    #create matrix to hold all coordinates of the N unexplored points on map
 
     #create lists to hold x and y
     xn = []
