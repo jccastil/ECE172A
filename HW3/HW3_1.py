@@ -12,6 +12,9 @@ forestjpg = cv2.imread(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\Github\Homew
 template_old = cv2.imread(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\Github\Homework\ECE172A\HW3\template_old.jpeg")
 
 
+#flip the forest image
+forestjpgH = cv2.flip(forestjpg,2)
+# cv2.imwrite('forestflipped.jpg',forestjpgH)
 
 #Create function computeNormGrayHistogram
 def computeNormGrayHistogram(img):
@@ -67,12 +70,12 @@ def computeNormGrayHistogram(img):
     print("new sum of counts: ", np.sum(counts))
     #plot the histogram from the normalized bins
     figgray = plt.figure()
-    ax = figgray.add_axes([0, 0, 1, 1])
-    ax.bar(np.arange(1, 34, 1), counts)
+    # ax = figgray.add_axes([0, 0, 1, 1])
+    plt.bar(np.arange(1, 34, 1), counts)
+    plt.xlabel("Bin")
+    plt.ylabel("Normalized Counts")
+    plt.title("Gray Histogram")
     plt.show()
-
-
-
 
     # #OLD*******************************
     # plt.hist(counts)
@@ -114,6 +117,7 @@ def computeNormRGBHistogram(img):
 
     #bins process RED
     redchannel = np.reshape(redchannel,-1)
+    # redchannel = redchannel*2
     redbins = np.array(range(0,255,8))
     redbin_ind = np.digitize(redchannel, redbins)
     redcounts = np.bincount(redbin_ind)
@@ -162,13 +166,17 @@ def computeNormRGBHistogram(img):
     #verified that it is 99 elements. Must resolve to be 96.
 
     #plot the histogram of RGB channels (using plt.bar)
-    fig1 = plt.figure()
-    ax = fig1.add_axes([0,0,1,1])
-    ax.bar(np.arange(1,100,1),rgbcount)
+    # plot the histogram from the normalized bins
+    figgray = plt.figure()
+    # ax = figgray.add_axes([0, 0, 1, 1])
+    plt.bar(np.arange(1, 100, 1), rgbcount)
+    plt.xlabel("Bin")
+    plt.ylabel("Normalized Counts")
+    plt.title("RGB Histogram")
     plt.show()
 
 
 #call the functions
-computeNormGrayHistogram(forestjpg)
+#computeNormGrayHistogram(forestjpg)
 
-computeNormRGBHistogram(forestjpg)
+#computeNormRGBHistogram(forestjpg)
