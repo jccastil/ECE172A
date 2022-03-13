@@ -217,6 +217,65 @@ muralnoise1jpgCopy0 = np.pad(muralnoise1jpgCopy0,(2,2),'constant',constant_value
 print("shape of padded image is: ",np.shape(muralnoise1jpgCopy0))
 #checkpoint: image is confirmed to have 2 layers of padded zeros all around (black pixels)
 
+# #create function to retrieve values of the 5x5 window and save them into a 1x25 vector-----
+# def getwindow(img, i, j):
+#     window = np.zeros(25)
+#     count = 0
+#     for k in range(0,4):
+#         for w in range(0,4):
+#             window[count] = img[i-2+k,j-2+w]
+#             count = count + 1
+#     return window
+# def replacepixel(img,win,i,j):
+#     mean = np.mean(win)
+#     img[i,j] = mean
+#
+# #attempt at running code
+# for i in range(2,1084):
+#     for j in range(2,2402):
+#         window = getwindow(muralnoise1jpgCopy0,i,j)
+#         replacepixel(muralnoise1jpgCopy0,window,i,j)
+# if (i==1084 and j==2402):
+#     cv2.imshow('test1', muralnoise1jpgCopy0[:, :])
+#     cv2.waitKey(0)
+#     cv2.destroyAllWindows()
+# #end create functions/test-----------
+
+#attempt2--------begin----------
+
+#create 25 element vector to hold neighbors and self
+window = np.zeros(25)
+
+#nested for loops to iterate 'original' image (padding not included)
+for i in range(2,1084):
+    for j in range(2,2402):
+        # z = muralnoise1jpgCopy0[i,j]
+        # zprime = muralnoise1jpgCopy0[i-2,j-2]
+        # print("i is: ", i)
+        # print("j is: ", j)
+        count = 0
+        for p in range(0,5):
+            for q in range(0,5):
+                window[count] = muralnoise1jpgCopy0[i-2+p,j-2+q]
+                count = count + 1
+                # print("count equals: ",count)
+                if(p==4 and q==4):
+                    mean = np.mean(window)
+                    muralnoise1jpgCopy0[i,j] = mean
+                    # print("p is: ", p)
+                    # print("q is:,", q)
+                    # print("count is: ", count)
+                    # print("window is: ", window)
+
+# print(window)
+cv2.imshow('orig', muralnoise1jpgCopy[:, :,0])
+cv2.imshow('mean', muralnoise1jpgCopy0[:, :])
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+#attempt2--------end----------
 
 #Problem 2 workspace-------end----------
 
