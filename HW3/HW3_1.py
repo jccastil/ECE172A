@@ -11,6 +11,13 @@ forestjpg = cv2.imread(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\Github\Homew
 #read template_old.jpg
 template_old = cv2.imread(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\Github\Homework\ECE172A\HW3\template_old.jpeg")
 
+#FOR PROBLEM 2
+muraljpg = cv2.imread(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\Github\Homework\ECE172A\HW3\mural.jpg")
+muralnoise1jpg = cv2.imread(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\Github\Homework\ECE172A\HW3\mural_noise1.jpg")
+muralnoise2jpg = cv2.imread(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\Github\Homework\ECE172A\HW3\mural_noise2.jpg")
+
+
+#END FOR PROBLEM 2
 
 #flip the forest image
 forestjpgH = cv2.flip(forestjpg,2)
@@ -176,7 +183,46 @@ def computeNormRGBHistogram(img):
     plt.show()
 
 
-#call the functions
-#computeNormGrayHistogram(forestjpg)
+#call the functions---------BEGIN----------
+# computeNormGrayHistogram(muralnoise2jpg)
 
 #computeNormRGBHistogram(forestjpg)
+#call the functions-------END------------
+
+#Problem 2 workspace-------begin----------
+# #padding with zeros (2 layers all around
+# print(muralnoise1jpg.shape)
+# tester = np.eye(5)
+# # print(tester)
+# tester = np.pad(tester,(2,2),'constant', constant_values=0)
+# print(tester)
+
+#pad mural_noise1 with 2 layers of zeros
+# muralnoise1jpgCopy = np.pad(muralnoise1jpg,(2,2),'constant', constant_values=0)
+muralnoise1jpgCopy = muralnoise1jpg
+
+#code below displays the image, and seems to be the same one in each layer
+#so will work on one layer and apply filter to rest if necessary
+# print(np.shape(muralnoise1jpgCopy[:,:,0]))
+# cv2.imshow('test0',muralnoise1jpgCopy[:,:,0])
+# cv2.imshow('test1',muralnoise1jpgCopy[:,:,1])
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+#work on muralnoise1jpgCopy[:,:,0]
+muralnoise1jpgCopy0 = muralnoise1jpgCopy[:,:,0]
+print("shape of image is: ",np.shape(muralnoise1jpgCopy0))
+#pad the image with 2 layers of zeros
+muralnoise1jpgCopy0 = np.pad(muralnoise1jpgCopy0,(2,2),'constant',constant_values=0)
+print("shape of padded image is: ",np.shape(muralnoise1jpgCopy0))
+#checkpoint: image is confirmed to have 2 layers of padded zeros all around (black pixels)
+
+
+#Problem 2 workspace-------end----------
+
+
+
+
+
+
+
