@@ -190,12 +190,6 @@ def computeNormRGBHistogram(img):
 #call the functions-------END------------
 
 #Problem 2 workspace-------begin----------
-# #padding with zeros (2 layers all around
-# print(muralnoise1jpg.shape)
-# tester = np.eye(5)
-# # print(tester)
-# tester = np.pad(tester,(2,2),'constant', constant_values=0)
-# print(tester)
 
 #pad mural_noise1 with 2 layers of zeros
 # muralnoise1jpgCopy = np.pad(muralnoise1jpg,(2,2),'constant', constant_values=0)
@@ -217,65 +211,101 @@ muralnoise1jpgCopy0 = np.pad(muralnoise1jpgCopy0,(2,2),'constant',constant_value
 print("shape of padded image is: ",np.shape(muralnoise1jpgCopy0))
 #checkpoint: image is confirmed to have 2 layers of padded zeros all around (black pixels)
 
-# #create function to retrieve values of the 5x5 window and save them into a 1x25 vector-----
-# def getwindow(img, i, j):
-#     window = np.zeros(25)
-#     count = 0
-#     for k in range(0,4):
-#         for w in range(0,4):
-#             window[count] = img[i-2+k,j-2+w]
-#             count = count + 1
-#     return window
-# def replacepixel(img,win,i,j):
-#     mean = np.mean(win)
-#     img[i,j] = mean
+
+#mean 5x5--------begin--------------
+
+#*******BEGIN FOR MURALNOISE1 5x5 mean**********************************************
+# #create 25 element vector to hold neighbors and self
+# window = np.zeros(25)
 #
-# #attempt at running code
+# #nested for loops to iterate 'original' image (padding not included)
 # for i in range(2,1084):
 #     for j in range(2,2402):
-#         window = getwindow(muralnoise1jpgCopy0,i,j)
-#         replacepixel(muralnoise1jpgCopy0,window,i,j)
-# if (i==1084 and j==2402):
-#     cv2.imshow('test1', muralnoise1jpgCopy0[:, :])
-#     cv2.waitKey(0)
-#     cv2.destroyAllWindows()
-# #end create functions/test-----------
+#         # z = muralnoise1jpgCopy0[i,j]
+#         # zprime = muralnoise1jpgCopy0[i-2,j-2]
+#         # print("i is: ", i)
+#         # print("j is: ", j)
+#         count = 0
+#         for p in range(0,5):
+#             for q in range(0,5):
+#                 window[count] = muralnoise1jpgCopy0[i-2+p,j-2+q]
+#                 count = count + 1
+#                 # print("count equals: ",count)
+#                 if(p==4 and q==4):
+#                     mean = np.mean(window)
+#                     muralnoise1jpgCopy0[i,j] = mean
+#                     # print("p is: ", p)
+#                     # print("q is:,", q)
+#                     # print("count is: ", count)
+#                     # print("window is: ", window)
+#
+# # print(window)
+# # cv2.imshow('orig', muralnoise1jpgCopy[:, :,0])
+# # cv2.imshow('mean', muralnoise1jpgCopy0[:, :])
+# # cv2.waitKey(0)
+# # cv2.destroyAllWindows()
+#******END FOR MURALNOISE1 5x5 mean*********************************************************
+#******BEGIN FOR MURALNOISE2 5x5 mean*******************************************
 
-#attempt2--------begin----------
+# #create copy of mural noise 2 to work on
+# muralnoise2jpgCopy = muralnoise2jpg
+#
+# #work on muralnoise2jpgCopy[:,:,0]
+# muralnoise2jpgCopy0 = muralnoise2jpgCopy[:,:,0]
+# #pad the image with 2 layers of zeros
+# muralnoise2jpgCopy0 = np.pad(muralnoise2jpgCopy0,(2,2),'constant',constant_values=0)
+#
+# #create 25 element vector
+# window1 = np.zeros(25)
+#
+# #nested for loops to iterate 'original' image (padding not included)
+# for i in range(2,1084):
+#     for j in range(2,2402):
+#         # z = muralnoise1jpgCopy0[i,j]
+#         # zprime = muralnoise1jpgCopy0[i-2,j-2]
+#         # print("i is: ", i)
+#         # print("j is: ", j)
+#         count = 0
+#         for p in range(0,5):
+#             for q in range(0,5):
+#                 window1[count] = muralnoise2jpgCopy0[i-2+p,j-2+q]
+#                 count = count + 1
+#                 # print("count equals: ",count)
+#                 if(p==4 and q==4):
+#                     mean1 = np.mean(window1)
+#                     muralnoise2jpgCopy0[i,j] = mean1
+#                     # print("p is: ", p)
+#                     # print("q is:,", q)
+#                     # print("count is: ", count)
+#                     # print("window is: ", window)
+#
+# print(window1)
+# cv2.imshow('orig', muralnoise2jpgCopy[:, :,0])
+# cv2.imshow('mean', muralnoise2jpgCopy0[:, :])
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+#******END FOR MURALNOISE2 5x5 mean*********************************************
 
-#create 25 element vector to hold neighbors and self
-window = np.zeros(25)
+#save filtered images
+#cv2.imwrite(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\HW\HW3\HW3_2_images\Mean5x5\mnoise1mean5x5.jpg",muralnoise1jpgCopy0)
+# cv2.imwrite(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\HW\HW3\HW3_2_images\Mean5x5\mnoise2mean5x5.jpg",muralnoise2jpgCopy0)
 
-#nested for loops to iterate 'original' image (padding not included)
-for i in range(2,1084):
-    for j in range(2,2402):
-        # z = muralnoise1jpgCopy0[i,j]
-        # zprime = muralnoise1jpgCopy0[i-2,j-2]
-        # print("i is: ", i)
-        # print("j is: ", j)
-        count = 0
-        for p in range(0,5):
-            for q in range(0,5):
-                window[count] = muralnoise1jpgCopy0[i-2+p,j-2+q]
-                count = count + 1
-                # print("count equals: ",count)
-                if(p==4 and q==4):
-                    mean = np.mean(window)
-                    muralnoise1jpgCopy0[i,j] = mean
-                    # print("p is: ", p)
-                    # print("q is:,", q)
-                    # print("count is: ", count)
-                    # print("window is: ", window)
+#mean5x5--------end---------------
 
-# print(window)
-cv2.imshow('orig', muralnoise1jpgCopy[:, :,0])
-cv2.imshow('mean', muralnoise1jpgCopy0[:, :])
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+#median5x5--------begin-----------
+
+#******BEGIN FOR MURALNOISE1 5x5 med*********************************************
+
+
+#******END FOR MURALNOISE1 5x5 med*********************************************
 
 
 
-#attempt2--------end----------
+#median5x5--------end-----------
+
+
+
+
 
 #Problem 2 workspace-------end----------
 
