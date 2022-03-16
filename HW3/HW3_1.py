@@ -191,25 +191,25 @@ def computeNormRGBHistogram(img):
 
 #Problem 2 workspace-------begin----------
 
-#pad mural_noise1 with 2 layers of zeros
-# muralnoise1jpgCopy = np.pad(muralnoise1jpg,(2,2),'constant', constant_values=0)
-muralnoise1jpgCopy = muralnoise1jpg
-
-#code below displays the image, and seems to be the same one in each layer
-#so will work on one layer and apply filter to rest if necessary
-# print(np.shape(muralnoise1jpgCopy[:,:,0]))
-# cv2.imshow('test0',muralnoise1jpgCopy[:,:,0])
-# cv2.imshow('test1',muralnoise1jpgCopy[:,:,1])
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
-
-#work on muralnoise1jpgCopy[:,:,0]
-muralnoise1jpgCopy0 = muralnoise1jpgCopy[:,:,0]
-print("shape of image is: ",np.shape(muralnoise1jpgCopy0))
-#pad the image with 2 layers of zeros
-muralnoise1jpgCopy0 = np.pad(muralnoise1jpgCopy0,(2,2),'constant',constant_values=0)
-print("shape of padded image is: ",np.shape(muralnoise1jpgCopy0))
-#checkpoint: image is confirmed to have 2 layers of padded zeros all around (black pixels)
+# #pad mural_noise1 with 2 layers of zeros
+# # muralnoise1jpgCopy = np.pad(muralnoise1jpg,(2,2),'constant', constant_values=0)
+# muralnoise1jpgCopy = muralnoise1jpg
+#
+# #code below displays the image, and seems to be the same one in each layer
+# #so will work on one layer and apply filter to rest if necessary
+# # print(np.shape(muralnoise1jpgCopy[:,:,0]))
+# # cv2.imshow('test0',muralnoise1jpgCopy[:,:,0])
+# # cv2.imshow('test1',muralnoise1jpgCopy[:,:,1])
+# # cv2.waitKey(0)
+# # cv2.destroyAllWindows()
+#
+# #work on muralnoise1jpgCopy[:,:,0]
+# muralnoise1jpgCopy0 = muralnoise1jpgCopy[:,:,0]
+# print("shape of image is: ",np.shape(muralnoise1jpgCopy0))
+# #pad the image with 2 layers of zeros
+# muralnoise1jpgCopy0 = np.pad(muralnoise1jpgCopy0,(2,2),'constant',constant_values=0)
+# print("shape of padded image is: ",np.shape(muralnoise1jpgCopy0))
+# #checkpoint: image is confirmed to have 2 layers of padded zeros all around (black pixels)
 
 
 #mean 5x5--------begin--------------
@@ -294,16 +294,92 @@ print("shape of padded image is: ",np.shape(muralnoise1jpgCopy0))
 
 #median5x5--------begin-----------
 
-#******BEGIN FOR MURALNOISE1 5x5 med*********************************************
-
-
-#******END FOR MURALNOISE1 5x5 med*********************************************
-
-
-
+#******BEGIN FOR MURALNOISE1 5x5 MED***********(note to self: just swiched image file on line 300 for noise2)************************
+# ALSO DONT FORGET TO CHANGE FILE NAME LINE 336
+#create copy of mural noise 1 to work on
+# mn1med = muralnoise1jpg
+#
+# #work on muralnoise1med5x5[:,:,0]
+# mn1med = mn1med[:,:,0]
+# #pad the image with 2 layers of zeros
+# mn1medpad = np.pad(mn1med,(2,2),'constant',constant_values=0)
+#
+# #create 25 element vector
+# window2 = np.zeros(25)
+#
+# #nested for loops to iterate 'original' image (padding not included in iteration)
+# for i in range(2,1084):
+#     for j in range(2,2402):
+#         # z = muralnoise1jpgCopy0[i,j]
+#         # zprime = muralnoise1jpgCopy0[i-2,j-2]
+#         # print("i is: ", i)
+#         # print("j is: ", j)
+#         count = 0
+#         for p in range(0,5):
+#             for q in range(0,5):
+#                 window2[count] = mn1medpad[i-2+p,j-2+q]
+#                 count = count + 1
+#                 # print("count equals: ",count)
+#                 if(p==4 and q==4):
+#                     median = np.median(window2)
+#                     mn1medpad[i,j] = median
+#                     # print("p is: ", p)
+#                     # print("q is:,", q)
+#                     # print("count is: ", count)
+#                     # print("window is: ", window2)
+#
+# print(window2)
+# cv2.imshow('orig', mn1med)
+# cv2.imshow('median', mn1medpad[:, :])
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+# # cv2.imwrite(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\HW\HW3\HW3_2_images\Median5x5\mnoise1med5x5.jpg",mn1medpad)
+#******END FOR MURALNOISE1 5x5 MED*********************************************
 #median5x5--------end-----------
 
+#-----mean 81x81 BEGIN-----------------------------
 
+mn1mean = muralnoise1jpg
+#work on muralnoise1med5x5[:,:,0]
+mn1mean = mn1mean[:,:,0]
+#pad the image with 2 layers of zeros
+mn1meanpad = np.pad(mn1mean,(40,40),'constant',constant_values=0)
+
+#create 6561 element vector
+window2 = np.zeros(6560)
+
+# nested for loops to iterate 'original' image (padding not included in iteration)
+for i in range(41,1123):
+    for j in range(41,2441):
+        # z = muralnoise1jpgCopy0[i,j]
+        # zprime = muralnoise1jpgCopy0[i-2,j-2]
+        # print("i is: ", i)
+        # print("j is: ", j)
+        count = 0
+        for p in range(0,80):
+            for q in range(0,80):
+                window2[count] = mn1meanpad[i-40+p,j-40+q]
+                count = count + 1
+                # print("count equals: ",count)
+                if(p==81 and q==81):
+                    mean = np.mean(window2)
+                    mn1meanpad[i,j] = mean
+                    # print("p is: ", p)
+                    # print("q is:,", q)
+                    # print("count is: ", count)
+                    # print("window is: ", window2)
+
+print(window2)
+cv2.imshow('orig', mn1mean)
+cv2.imshow('mean', mn1meanpad[:, :])
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+# cv2.imwrite(r"C:\Users\juanc\Desktop\Winter 2022\ECE 172\HW\HW3\HW3_2_images\Median5x5\mnoise1med5x5.jpg",mn1medpad)
+
+
+
+
+#-----mean 81x81 END-----------------------------
 
 
 
